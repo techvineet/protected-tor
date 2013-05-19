@@ -1,0 +1,35 @@
+<h2>Sign up</h2>
+<%= form_for(resource, :as => resource_name, :url => registration_path(resource_name)) do |f| %>
+  <%= devise_error_messages! unless resource.nil? %>
+
+  <div>
+    <%= f.text_field :first_name, :autofocus => true, :placeholder => "First Name" %>
+  </div>
+
+  <div>
+    <%= f.text_field :last_name, :placeholder => "Last Name" %>
+  </div>
+
+  <div>
+    <%= f.email_field :email, :placeholder => "Email" %>
+  </div>
+
+  <div>
+    <%= f.password_field :password, :placeholder => "Password" %>
+  </div>
+
+  <div>
+    <%= f.password_field :password_confirmation, :placeholder => "Confirm Password" %>
+  </div>
+
+  <%= f.fields_for :service_provider_detail do |builder| %>
+    <div>
+      <%= builder.text_field :company_name, :placeholder => "Company Name" %>
+    </div>
+  <% end %>
+
+
+  <div><%= f.submit "Sign up", :class => "btn" %></div>
+<% end %>
+
+<%= render "devise/shared/links" %>

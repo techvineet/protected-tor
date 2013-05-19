@@ -1,4 +1,13 @@
-Blah::Application.routes.draw do
+MyApplication::Application.routes.draw do
+  
+  devise_for :buyers, :controllers => { :registrations => 'buyers/registrations', :confirmations => 'confirmations' }, :skip => :sessions
+  devise_for :service_providers, :controllers => { :registrations => 'service_providers/registrations' }, :skip => :sessions
+  devise_for :users, :controllers => { :sessions => 'sessions' }, :skip => :registrations
+  
+  resources :users
+  resources :service_providers
+  resources :buyers
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
@@ -48,7 +57,7 @@ Blah::Application.routes.draw do
 
   # You can have the root of your site routed with "root"
   # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
+  root :to => 'home#index'
 
   # See how all your routes lay out with "rake routes"
 

@@ -30,7 +30,3 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # uuid for users
 gem 'uuidtools'
-
-# Twitter Bootstrap
-gem 'twitter-bootstrap-rails'
-gem 'bootstrap_helper'

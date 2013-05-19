@@ -10,6 +10,7 @@ group :assets do
   gem 'therubyracer', :platforms => :ruby
   gem 'twitter-bootstrap-rails'
   gem 'less-rails'
+  gem 'bootstrap_helper'
 end
 
 #Database

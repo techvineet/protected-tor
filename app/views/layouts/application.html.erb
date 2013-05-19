@@ -47,14 +47,14 @@
           <a class="brand" href="/">MyApplication</a>
           <div class="container nav-collapse">
             <ul class="nav pull-right">
-              <% unless user_signed_in? or buyer_signed_in? or service_provider_signed_in? %>
+              <% if user_signed_in? or buyer_signed_in? or service_provider_signed_in? %>
+                <li><%= link_to "Log Out", destroy_user_session_path  %></li>
+              <% else %>
                 <li><%= link_to "Service Providers", new_service_provider_registration_path  %></li>
                 <li class="divider-vertical"></li>
                 <li><%= link_to "Buyers", new_buyer_registration_path  %></li>
                 <li class="divider-vertical"></li>
                 <li><%= link_to "Log In", user_session_path  %></li>
-              <% else %>
-                <li><%= link_to "Log Out", destroy_user_session_path  %></li>
               <% end %>  
             </ul>
           </div><!--/.nav-collapse -->

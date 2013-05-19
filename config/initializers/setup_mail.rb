@@ -8,5 +8,6 @@ ActionMailer::Base.smtp_settings = {
   :enable_starttls_auto => true
 }
 ActionMailer::Base.default :from => "MyApplication <myherokuapps@gmail.com>"
-ActionMailer::Base.default_url_options[:host] = "localhost:3000"
-#Mail.register_interceptor(DevelopmentMailInterceptor) if Rails.env.development?
+
+ActionMailer::Base.default_url_options[:host] = "localhost:3000" if Rails.env.development?
+ActionMailer::Base.default_url_options[:host] = "serviceprovider.herokuapp.com" unless Rails.env.development?

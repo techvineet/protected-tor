@@ -8,9 +8,6 @@ group :assets do
   gem 'coffee-rails', '~> 3.2.1'
   gem 'uglifier', '>= 1.0.3'
   gem 'therubyracer', :platforms => :ruby
-  gem 'twitter-bootstrap-rails'
-  gem 'less-rails'
-  gem 'bootstrap_helper'
 end
 
 #Database
@@ -30,3 +27,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 
 # uuid for users
 gem 'uuidtools'
+
+# Twitter Bootstrap
+gem 'twitter-bootstrap-rails'
+gem 'bootstrap_helper'

@@ -6,6 +6,16 @@ form {
   label {
     cursor: default;
   }
+  .has_many {
+    overflow: auto;
+    a.close {
+      margin-left: 6px;
+      margin-top: 2px;
+    }
+    input[type=text] {
+      float: left;
+    }
+  }
 }
 
 .remember_me {
@@ -17,4 +27,12 @@ form {
      float: left;
      margin-left: 10px;
    }
+}
+
+legend {
+  font-size: 18px;
+  line-height: 30px;
+  margin-bottom: 10px;
+  min-width: 220px;
+  width: 50%;
 }

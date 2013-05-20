@@ -9,3 +9,4 @@ en:
         last_name: "Last Name"
       service_provider_detail:
         company_name: "Company Name"
+        insurance_amount: "Insurance Amount"

@@ -22,13 +22,28 @@
     <div>
       <%= f.password_field :password_confirmation, :placeholder => "Confirm Password" %>
     </div>
+    <%= f.fields_for :service_provider_detail do |builder| %>
+      <div>
+        <%= builder.text_field :company_name, :placeholder => "Company Name" %>
+      </div>
+    <% end %>
   </fieldset>
+  <fieldset>
+    <legend>Is your company insured?</legend>
+    <%= f.fields_for :service_provider_detail do |builder| %>
+      <% insurance = builder.object.insurance.nil? ? true : builder.object.insurance %>
+      <%= builder.hidden_field :insurance, :value => insurance %>
+      <div class="btn-group" data-toggle-name="service_provider[service_provider_detail_attributes][insurance]" data-toggle="buttons-radio" style="height: 32px;" >
+        <button type="button" value="true" class="btn btn-success btn-mini <%= insurance ? "active" : "" %>" data-toggle="button" onclick="$('#insurance_amount').fadeIn();">Yes</button>
+        <button type="button" value="false" class="btn btn-success btn-mini <%= !insurance ? "active" : "" %>" data-toggle="button" onclick="$('#insurance_amount').fadeOut();">No</button>
+      </div>
 
-  <%= f.fields_for :service_provider_detail do |builder| %>
-    <div>
-      <%= builder.text_field :company_name, :placeholder => "Company Name" %>
-    </div>
-  <% end %>
+      <div>
+        <%= builder.text_field :insurance_amount, :placeholder => "Insurance Amount", :id => "insurance_amount", :style => insurance ? "" : "display: none" %>
+      </div>
+
+    <% end %>
+  </fieldset>
   <fieldset>
     <legend>What services do you provide?</legend>
     <% first = true %>
@@ -37,7 +52,7 @@
       <% first = false %>
     <% end %>
     <p><%= link_to_add_fields f, :services %></p>
-  </fieldset>  
+  </fieldset>
   <fieldset>
     <legend>Certifications?</legend>
     <% first = true %>
@@ -46,7 +61,7 @@
       <% first = false %>
     <% end %>
     <p><%= link_to_add_fields f, :certifications %></p>
-  </fieldset>  
+  </fieldset>
 
   <br />
   <div><%= f.submit "Sign up", :class => "btn btn-primary" %></div>

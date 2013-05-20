@@ -1,8 +1,23 @@
 MyApplication::Application.routes.draw do
   
-  devise_for :buyers, :controllers => { :registrations => 'buyers/registrations', :confirmations => 'confirmations' }, :skip => :sessions
-  devise_for :service_providers, :controllers => { :registrations => 'service_providers/registrations' }, :skip => :sessions
-  devise_for :users, :controllers => { :sessions => 'sessions' }, :skip => :registrations
+  devise_for :buyers, 
+             :controllers => { :registrations => 'buyers/registrations', 
+                               :confirmations => 'confirmations', 
+                               :passwords => 'passwords' 
+                             }, 
+             :skip => :sessions
+           
+  devise_for :service_providers, 
+             :controllers => { :registrations => 'service_providers/registrations', 
+                               :confirmations => 'confirmations',  
+                               :passwords => 'passwords' 
+                             }, 
+             :skip => :sessions
+           
+  devise_for :users, 
+             :controllers => { :sessions => 'sessions' 
+                             }, 
+             :skip => :registrations
   
   resources :users
   resources :service_providers

@@ -9,8 +9,18 @@
       <a class="brand" href="/">Service Providers</a>
       <div class="container nav-collapse">
         <ul class="nav pull-right">
-          <% if user_signed_in? or buyer_signed_in? or service_provider_signed_in? %>
-            <li><%= link_to "Sign Out", destroy_user_session_path  %></li>
+          <% if user_signed_in? %>
+            <li class="dropdown">
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <%= current_user.name %>
+                <b class="caret"></b>
+              </a>
+              <ul class="dropdown-menu">
+                <li><%= link_to "My Profile", destroy_user_session_path  %></li>
+                <li><%= link_to "Account Settings", destroy_user_session_path  %></li>
+                <li class="divider"></li>
+                <li><%= link_to "Sign Out", destroy_user_session_path  %></li>
+              </ul>
           <% else %>
             <li><%= link_to "Service Providers", new_service_provider_registration_path  %></li>
             <li class="divider-vertical"></li>
@@ -23,3 +33,7 @@
     </div>
   </div>
 </div>
+
+
+
+

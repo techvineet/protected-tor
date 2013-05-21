@@ -23,6 +23,12 @@ MyApplication::Application.routes.draw do
   resources :service_providers
   resources :buyers
   
+  resources :account, :only => [:index] do
+    # collection do
+    #   get 'something'
+    # end
+  end
+  
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

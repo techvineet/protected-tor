@@ -25,5 +25,6 @@ $(function(){
         button.addClass('active');
       }
     });
-  });
+  });  
+  $(".currency_field").maskMoney();  
 })

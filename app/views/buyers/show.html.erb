@@ -1,0 +1,14 @@
+<div class="hero-unit">
+  <h1><%= @user.name%></h1>
+  <div>
+    <p><b>Location:</b>  <%= @user.buyer_detail.location %></p>
+    <p><a href="<%= edit_buyer_path(current_user.uuid) %>" class="btn btn-primary">Edit Profile</a></p>
+  </div>
+  <hr />
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">About Me</h4>
+      <%= @user.about_me %>
+    </div>
+  </div>
+</div>

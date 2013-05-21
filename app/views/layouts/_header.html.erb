@@ -16,7 +16,11 @@
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <li><%= link_to "My Profile", destroy_user_session_path  %></li>
+                <% if current_user.class.to_s == "ServiceProvider" %>
+                  <li><%= link_to "My Profile", service_provider_path(current_user.uuid)  %></li>
+                <% elsif current_user.class.to_s == "Buyer" %>
+                  <li><%= link_to "My Profile", buyer_path(current_user.uuid)  %></li>
+                <% end %>  
                 <% if current_user.class.to_s == "ServiceProvider" %>
                   <li><%= link_to "Account Settings", edit_service_provider_registration_path %></li>
                 <% elsif current_user.class.to_s == "Buyer" %>
@@ -25,7 +29,7 @@
                 <li class="divider"></li>
                 <li><%= link_to "Sign Out", destroy_user_session_path  %></li>
               </ul>
-          <% else %>
+            <% else %>
             <li><%= link_to "Service Providers", new_service_provider_registration_path  %></li>
             <li class="divider-vertical"></li>
             <li><%= link_to "Buyers", new_buyer_registration_path  %></li>
@@ -33,6 +37,11 @@
             <li><%= link_to "Sign In", user_session_path  %></li>
           <% end %>  
         </ul>
+        <% if user_signed_in? %>
+        <form class="navbar-search pull-right">
+          <input type="text" class="search-query" placeholder="Search">
+        </form>
+        <% end %>
       </div><!--/.nav-collapse -->
     </div>
   </div>

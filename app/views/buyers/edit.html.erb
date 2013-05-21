@@ -1,0 +1,29 @@
+<h2>Edit Profile</h2>
+<%= form_for @user, :url => buyer_path(current_user.uuid) do |f| %>
+  <% @resource = @user %>
+  <%= form_error_messages! unless @resource.nil? %>
+
+  <div>
+    <%= f.text_field :first_name, :placeholder => "First Name" %>
+  </div>
+
+  <div>
+    <%= f.text_field :last_name, :placeholder => "Last Name" %>
+  </div>
+
+  <%= f.fields_for :buyer_detail do |builder| %>
+    <div>
+      <%= builder.text_field :location, :placeholder => "Location" %>
+    </div>
+  <% end %>
+  
+  <div>
+    <%= f.text_area :about_me, :placeholder => "About Me", :rows => 10 %>
+  </div>
+
+  <div>
+    <button class="btn btn-primary">Update</button>
+    &nbsp;
+    <a class="btn btn-success" href="<%= buyer_path(current_user.uuid) %>">Back</a>
+  </div>
+<% end %>

@@ -1,0 +1,42 @@
+<div class="hero-unit">
+  <h1><%= @user.name%></h1>
+  <div>
+    <p><b>Company:</b>  <%= @user.service_provider_detail.company_name %></p>
+    <p><a href="<%= edit_service_provider_path(current_user.uuid) %>" class="btn btn-primary">Edit Profile</a></p>
+  </div>
+  <hr />
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">About Me</h4>
+      <%= @user.about_me %>
+    </div>
+  </div>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">Services Offered</h4>
+      <ul>
+        <% @user.services.each do |service| %>
+          <li><%= service.name %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">Certifications</h4>
+      <ul>
+        <% @user.certifications.each do |certificate| %>
+          <li><%= certificate.name %></li>
+        <% end %>
+      </ul>
+    </div>
+  </div>
+  <% if @user.service_provider_detail.insurance %>
+  <div class="media">
+    <div class="media-body">
+      <h4 class="media-heading">Insurance</h4>
+      $ <%= @user.service_provider_detail.insurance_amount %>
+    </div>
+  </div>
+  <% end %>
+</div>

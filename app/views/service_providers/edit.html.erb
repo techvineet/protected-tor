@@ -1,0 +1,65 @@
+<h2>Edit Profile</h2>
+<%= form_for @user, :url => service_provider_path(current_user.uuid) do |f| %>
+  <% @resource = @user %>
+  <%= form_error_messages! unless @resource.nil? %>
+  <legend>Tell us about yourself?</legend>
+  <div>
+    <%= f.text_field :first_name, :placeholder => "First Name" %>
+  </div>
+
+  <div>
+    <%= f.text_field :last_name, :placeholder => "Last Name" %>
+  </div>
+
+  <%= f.fields_for :service_provider_detail do |builder| %>
+    <div>
+      <%= builder.text_field :company_name, :placeholder => "Company Name" %>
+    </div>
+  <% end %>
+  <div>
+    <%= f.text_area :about_me, :placeholder => "About Me", :rows => 10 %>
+  </div>
+  </fieldset>
+  <fieldset>
+    <legend>Is your company insured?</legend>
+    <%= f.fields_for :service_provider_detail do |builder| %>
+      <% insurance = builder.object.insurance.nil? ? true : builder.object.insurance %>
+      <%= builder.hidden_field :insurance, :value => insurance %>
+      <div class="btn-group" data-toggle-name="service_provider[service_provider_detail_attributes][insurance]" data-toggle="buttons-radio" style="height: 32px;" >
+        <button type="button" value="true" class="btn btn-success btn-mini <%= insurance ? "active" : "" %>" data-toggle="button" onclick="$('#insurance_amount').fadeIn();">Yes</button>
+        <button type="button" value="false" class="btn btn-success btn-mini <%= !insurance ? "active" : "" %>" data-toggle="button" onclick="$('#insurance_amount').fadeOut();">No</button>
+      </div>
+
+      <div>
+        <%= builder.text_field :insurance_amount, :placeholder => "Insurance Amount", :id => "insurance_amount", :style => insurance ? "" : "display: none", :class => "currency_field" %>
+      </div>
+
+    <% end %>
+  </fieldset>
+  <fieldset>
+    <legend>What services do you provide?</legend>
+    <% first = true %>
+    <%= f.fields_for :services do |builder| %>
+      <%= render 'service_fields', :f => builder, :first => first %>
+      <% first = false %>
+    <% end %>
+    <p><%= link_to_add_fields f, :services %></p>
+  </fieldset>
+  <fieldset>
+    <legend>Certifications?</legend>
+    <% first = true %>
+    <%= f.fields_for :certifications do |builder| %>
+      <%= render 'certification_fields', :f => builder, :first => first %>
+      <% first = false %>
+    <% end %>
+    <p><%= link_to_add_fields f, :certifications %></p>
+  </fieldset>
+
+  <br />
+  <div>
+    <button class="btn btn-primary">Update</button>
+    &nbsp;
+    <a class="btn btn-success" href="<%= service_provider_path(current_user.uuid) %>">Back</a>
+  </div>
+<% end %>
+

@@ -17,7 +17,11 @@
               </a>
               <ul class="dropdown-menu">
                 <li><%= link_to "My Profile", destroy_user_session_path  %></li>
-                <li><%= link_to "Account Settings", destroy_user_session_path  %></li>
+                <% if current_user.class.to_s == "ServiceProvider" %>
+                  <li><%= link_to "Account Settings", edit_service_provider_registration_path %></li>
+                <% elsif current_user.class.to_s == "Buyer" %>
+                  <li><%= link_to "Account Settings", edit_buyer_registration_path %></li>
+                <% end %>
                 <li class="divider"></li>
                 <li><%= link_to "Sign Out", destroy_user_session_path  %></li>
               </ul>

@@ -2,9 +2,9 @@ class ServiceProvider < User
   
   attr_accessible :service_provider_detail_attributes, :services_attributes, :certifications_attributes
   
-  has_one :service_provider_detail, :foreign_key => "user_id"
-  has_many :certifications
-  has_many :services
+  has_one :service_provider_detail, :foreign_key => "user_id", :dependent => :destroy
+  has_many :certifications, :dependent => :destroy
+  has_many :services, :dependent => :destroy
   
   #validates_associated :service_provider_detail
   

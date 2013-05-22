@@ -26,5 +26,6 @@ $(function(){
       }
     });
   });  
-  $(".currency_field").maskMoney();  
+  $(".currency_field").maskMoney();
+  $('input, textarea').placeholder();
 })

@@ -85,3 +85,15 @@ textarea {
 .placeholder { color: #aaa !important; }
 
 .search-query.placeholder { color: #fff !important; }
+
+.media.uploaded-photo-gallery {
+  .media-heading {
+    margin-bottom: 15px;
+    overflow: auto;
+    div {
+      float: left; 
+      margin-top: 9px;
+    }
+  }
+}
+

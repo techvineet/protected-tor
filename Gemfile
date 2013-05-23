@@ -32,3 +32,7 @@ gem 'uuidtools'
 # Twitter Bootstrap
 gem 'twitter-bootstrap-rails'
 gem 'bootstrap_helper'
+
+# File/Photo Uploading
+gem 'jquery-fileupload-rails'
+gem 'paperclip'

@@ -5,6 +5,7 @@ class ServiceProvider < User
   has_one :service_provider_detail, :foreign_key => "user_id", :dependent => :destroy
   has_many :certifications, :dependent => :destroy
   has_many :services, :dependent => :destroy
+  has_many :photos, :dependent => :destroy
   
   #validates_associated :service_provider_detail
   

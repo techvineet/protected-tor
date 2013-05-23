@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130520151856) do
+ActiveRecord::Schema.define(:version => 20130522132436) do
 
   create_table "buyer_details", :force => true do |t|
     t.integer  "user_id"
@@ -22,6 +22,16 @@ ActiveRecord::Schema.define(:version => 20130520151856) do
 
   create_table "certifications", :force => true do |t|
     t.string   "name"
+    t.integer  "service_provider_id"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
+  end
+
+  create_table "photos", :force => true do |t|
+    t.string   "upload_file_name"
+    t.string   "upload_content_type"
+    t.integer  "upload_file_size"
+    t.datetime "upload_updated_at"
     t.integer  "service_provider_id"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false

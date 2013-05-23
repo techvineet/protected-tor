@@ -32,11 +32,32 @@
     </div>
   </div>
   <% if @user.service_provider_detail.insurance %>
-  <div class="media">
+    <div class="media">
+      <div class="media-body">
+        <h4 class="media-heading">Insurance</h4>
+        $ <%= @user.service_provider_detail.insurance_amount %>
+      </div>
+    </div>
+  <% end %>
+  <div class="media uploaded-photo-gallery">
     <div class="media-body">
-      <h4 class="media-heading">Insurance</h4>
-      $ <%= @user.service_provider_detail.insurance_amount %>
+      <h4 class="media-heading">
+        <div>Photos</div>
+        <a href="<%= service_provider_photos_path(current_user.uuid) %>" class="btn btn-primary pull-right">Manage Photos</a>
+      </h4>
+      <div class="row-fluid">
+        <% current_user.photos.in_groups_of(4, false).each do |photo_arr| %>
+          <ul class="thumbnails">
+            <% photo_arr.each do |photo| %>
+              <li class="span3">
+                <a class="thumbnail" href="#">
+                  <img alt="260x180" src="<%=photo.upload.url(:small)%>">
+                </a>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+      </div>
     </div>
   </div>
-  <% end %>
 </div>

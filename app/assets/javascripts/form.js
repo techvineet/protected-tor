@@ -26,6 +26,9 @@ $(function(){
       }
     });
   });  
-  $(".currency_field").maskMoney();
+  //https://github.com/plentz/jquery-maskmoney
+  $(".currency_field").maskMoney({
+    precision: 0
+  });
   $('input, textarea').placeholder();
 })

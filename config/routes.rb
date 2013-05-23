@@ -20,14 +20,16 @@ MyApplication::Application.routes.draw do
              :skip => :registrations
   
   resources :users
-  resources :service_providers
+  
+  resources :service_providers do
+    resources :photos
+  end
+  
   resources :buyers
   
-  resources :account, :only => [:index] do
-    # collection do
-    #   get 'something'
-    # end
-  end
+  resources :photos
+  
+  resources :account, :only => [:index]
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

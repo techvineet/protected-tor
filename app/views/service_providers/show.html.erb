@@ -1,7 +1,8 @@
 <div class="hero-unit">
   <h1><%= @user.name%></h1>
   <div>
-    <p><b>Company:</b>  <%= @user.service_provider_detail.company_name %></p>
+    <p style="margin: 0;"><b>Company:</b>  <%= @user.service_provider_detail.company_name %></p>
+    <p><b>Contact:</b>  <%= @user.service_provider_detail.contact_number %></p>
     <p><a href="<%= edit_service_provider_path(current_user.uuid) %>" class="btn btn-primary">Edit Profile</a></p>
   </div>
   <hr />

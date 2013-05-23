@@ -15,6 +15,9 @@
     <div>
       <%= builder.text_field :company_name, :placeholder => "Company Name" %>
     </div>
+    <div>
+      <%= builder.text_field :contact_number, :placeholder => "Contact Number", :class => "numeric_field" %>
+    </div>
   <% end %>
   <div>
     <%= f.text_area :about_me, :placeholder => "About Me", :rows => 10 %>

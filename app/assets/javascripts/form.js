@@ -28,7 +28,13 @@ $(function(){
   });  
   //https://github.com/plentz/jquery-maskmoney
   $(".currency_field").maskMoney({
-    precision: 0
+    precision: 0,
+    defaultZero: false
+  });
+  $(".numeric_field").maskMoney({
+    precision: 0,
+    thousands: "",
+    defaultZero: false
   });
   $('input, textarea').placeholder();
 })

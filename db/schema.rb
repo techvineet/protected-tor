@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130522132436) do
+ActiveRecord::Schema.define(:version => 20130523215655) do
 
   create_table "buyer_details", :force => true do |t|
     t.integer  "user_id"
@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(:version => 20130522132436) do
     t.string   "insurance_amount"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
+    t.string   "contact_number"
   end
 
   create_table "services", :force => true do |t|

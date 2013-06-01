@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130523215655) do
+ActiveRecord::Schema.define(:version => 20130601151848) do
 
   create_table "buyer_details", :force => true do |t|
     t.integer  "user_id"
@@ -20,6 +20,15 @@ ActiveRecord::Schema.define(:version => 20130523215655) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "categories", :force => true do |t|
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.string   "ancestry"
+  end
+
+  add_index "categories", ["ancestry"], :name => "index_categories_on_ancestry"
+
   create_table "certifications", :force => true do |t|
     t.string   "name"
     t.integer  "service_provider_id"
@@ -27,12 +36,25 @@ ActiveRecord::Schema.define(:version => 20130523215655) do
     t.datetime "updated_at",          :null => false
   end
 
+  create_table "jobs", :force => true do |t|
+    t.integer  "category_id"
+    t.string   "title"
+    t.text     "description"
+    t.string   "budget"
+    t.date     "start_date"
+    t.date     "end_date"
+    t.integer  "status"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
   create_table "photos", :force => true do |t|
     t.string   "upload_file_name"
     t.string   "upload_content_type"
     t.integer  "upload_file_size"
     t.datetime "upload_updated_at"
-    t.integer  "service_provider_id"
+    t.integer  "imageable_id"
+    t.string   "imageable_type"
     t.datetime "created_at",          :null => false
     t.datetime "updated_at",          :null => false
   end

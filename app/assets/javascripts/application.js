@@ -15,4 +15,5 @@
 //= require jquery-fileupload
 //= require twitter/bootstrap
 //= require bootstrap
+//= require select2
 //= require_tree .

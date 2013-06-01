@@ -5,9 +5,11 @@ class CreatePhotos < ActiveRecord::Migration
       t.string :upload_content_type
       t.integer :upload_file_size
       t.datetime :upload_updated_at
-      t.integer :service_provider_id
+      t.integer :imageable_id
+      t.string  :imageable_type
 
       t.timestamps
     end
+    add_index [:imageable_id, :imageable_type]
   end
 end

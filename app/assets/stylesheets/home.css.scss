@@ -97,3 +97,34 @@ textarea {
   }
 }
 
+#fileupload {
+  .thumbnail {
+    .caption {
+      padding-left: 0;
+      padding-right: 0;
+      padding-bottom: 0;
+
+      p {
+        text-align: center;
+        margin: 0 0 6px;
+      }
+    }
+
+    a {
+      text-align: center;
+      display: block;
+    }
+  }
+  .span4 {
+    margin-bottom: 10px;
+    margin-left: 0;
+    margin-right: 10px;
+  }
+  .files .progress {
+    width: 100%;
+  }
+  .files .delete {
+    width: auto;
+  }
+}
+

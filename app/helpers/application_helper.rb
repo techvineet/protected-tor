@@ -13,4 +13,14 @@ module ApplicationHelper
     "<button type='button' class='btn btn-mini btn-success' onclick='add_fields(this, \"#{association}\", \"#{escape_javascript(fields)}\")'>Add More</button>".html_safe
   end
   
+  def is_active?(section)
+    controller_str = controller_path.gsub("/","_")
+    if action_name == "new" or action_name == "create"
+      action_str = "new"
+    else
+      action_str = action_name
+    end
+    return "active" if section == "#{controller_str}_#{action_str}"
+  end
+  
 end

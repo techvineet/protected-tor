@@ -1,13 +1,32 @@
 <div class="navbar navbar-static-top navbar-inverse">
   <div class="navbar-inner">
     <div class="container">
+
       <a class="btn btn-navbar" data-target=".nav-collapse" data-toggle="collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </a>
+
       <a class="brand" href="/">Service Providers</a>
+
       <div class="container nav-collapse">
+
+        <!-- Navigation bar for signed in user -->
+        <% if user_signed_in? %>
+          <ul class="nav">
+            <li class="<%= is_active? "account_index" %>">
+              <a href="/">Home</a>
+            </li>
+            <% if current_user.class.to_s == "Buyer" %>
+              <li class="<%= is_active? "jobs_index" %>">
+                <a href="<%= buyer_jobs_path(current_user.uuid) %>">My Jobs</a>
+              </li>
+            <% end %>
+          </ul>
+        <% end %>
+
+        <!-- Right navigation bar -->
         <ul class="nav pull-right">
           <% if user_signed_in? %>
             <li class="dropdown">
@@ -17,31 +36,51 @@
               </a>
               <ul class="dropdown-menu">
                 <% if current_user.class.to_s == "ServiceProvider" %>
-                  <li><%= link_to "My Profile", service_provider_path(current_user.uuid)  %></li>
+                  <li>
+                    <%= link_to "My Profile", service_provider_path(current_user.uuid)  %>
+                  </li>
                 <% elsif current_user.class.to_s == "Buyer" %>
-                  <li><%= link_to "My Profile", buyer_path(current_user.uuid)  %></li>
+                  <li>
+                    <%= link_to "My Profile", buyer_path(current_user.uuid)  %>
+                  </li>
                 <% end %>  
                 <% if current_user.class.to_s == "ServiceProvider" %>
-                  <li><%= link_to "Account Settings", edit_service_provider_registration_path %></li>
+                  <li>
+                    <%= link_to "Account Settings", edit_service_provider_registration_path %>
+                  </li>
                 <% elsif current_user.class.to_s == "Buyer" %>
-                  <li><%= link_to "Account Settings", edit_buyer_registration_path %></li>
+                  <li>
+                    <%= link_to "Account Settings", edit_buyer_registration_path %>
+                  </li>
                 <% end %>
                 <li class="divider"></li>
-                <li><%= link_to "Sign Out", destroy_user_session_path  %></li>
+                <li>
+                  <%= link_to "Sign Out", destroy_user_session_path  %>
+                </li>
               </ul>
-            <% else %>
-            <li><%= link_to "Service Providers", new_service_provider_registration_path  %></li>
+            </li>
+          <% else %>
+            <li class="<%= is_active? "service_providers_registrations_new" %>">
+              <%= link_to "Service Providers", new_service_provider_registration_path  %>
+            </li>
             <li class="divider-vertical"></li>
-            <li><%= link_to "Buyers", new_buyer_registration_path  %></li>
+            <li class="<%= is_active? "buyers_registrations_new" %>">
+              <%= link_to "Buyers", new_buyer_registration_path %>
+            </li>
             <li class="divider-vertical"></li>
-            <li><%= link_to "Sign In", user_session_path  %></li>
+            <li class="<%= is_active? "sessions_new" %>">
+              <%= link_to "Sign In", user_session_path  %>
+            </li>
           <% end %>  
         </ul>
+
+        <!-- Search Box -->
         <% if user_signed_in? %>
-        <form class="navbar-search pull-right">
-          <input type="text" class="search-query" placeholder="Search">
-        </form>
+          <form class="navbar-search pull-right">
+            <input type="text" class="search-query" placeholder="Search">
+          </form>
         <% end %>
+
       </div><!--/.nav-collapse -->
     </div>
   </div>

@@ -1,6 +1,6 @@
 class Photo < ActiveRecord::Base
   attr_accessible :service_provider_id, :upload
-  belongs_to :service_provider
+  belongs_to :imageable, :polymorphic => true
   
   has_attached_file :upload,
     :styles => {
@@ -17,7 +17,8 @@ class Photo < ActiveRecord::Base
       "url" => upload.url(:original),
       "delete_url" => photo_path(self),
       "delete_type" => "DELETE",
-      "thumbnail_url" => upload.url(:thumb)
+      "thumbnail_url" => upload.url(:thumb),
+      "small_url" => upload.url(:small)
     }
   end
 

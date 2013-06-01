@@ -36,3 +36,9 @@ gem 'bootstrap_helper'
 # File/Photo Uploading
 gem 'jquery-fileupload-rails'
 gem 'paperclip'
+
+# Categories/Sub-Categories
+gem 'ancestry'
+
+# Dropdowns
+gem 'select2-rails'

@@ -25,7 +25,9 @@ MyApplication::Application.routes.draw do
     resources :photos
   end
   
-  resources :buyers
+  resources :buyers do
+    resources :jobs
+  end
   
   resources :photos
   

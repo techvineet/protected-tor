@@ -37,4 +37,9 @@ $(function(){
     defaultZero: false
   });
   $('input, textarea').placeholder();
+  $("#sort_job_list").select2({
+    placeholder: "Sort By",
+    allowClear: true,
+    minimumResultsForSearch: '10'
+  })
 })

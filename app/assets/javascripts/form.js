@@ -39,7 +39,7 @@ $(function(){
   $('input, textarea').placeholder();
   $("#sort_job_list").select2({
     placeholder: "Sort By",
-    allowClear: true,
-    minimumResultsForSearch: '10'
+    minimumResultsForSearch: '10',
+    width: "150px"
   })
 })

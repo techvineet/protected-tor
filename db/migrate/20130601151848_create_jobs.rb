@@ -4,7 +4,7 @@ class CreateJobs < ActiveRecord::Migration
       t.integer :category_id
       t.string :title
       t.text :description
-      t.string :budget
+      t.integer :budget
       t.date :start_date
       t.date :end_date
       t.integer :status

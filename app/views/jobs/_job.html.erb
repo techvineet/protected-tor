@@ -22,7 +22,11 @@
         <% end %> 
       <% end %>
     </h4>
-    $<%= job.budget %> | 
+    <% if job.budget.present? %>
+      <%= number_to_currency(job.budget, :precision => 0) %>
+    <% else %>
+      Not Disclosed
+    <% end %> | 
     <% if job.start_date.present? or job.end_date.present? %>
       <%= job.start_date.nil? ? "Undecided" : job.start_date.readable_inspect %> to <%= job.end_date.nil? ? "Undecided" : job.end_date.readable_inspect %>
     <% else %>

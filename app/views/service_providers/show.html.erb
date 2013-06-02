@@ -36,7 +36,7 @@
     <div class="media">
       <div class="media-body">
         <h4 class="media-heading">Insurance</h4>
-        $ <%= @user.service_provider_detail.insurance_amount %>
+        <%= number_to_currency(@user.service_provider_detail.insurance_amount, :precision => 0) %>
       </div>
     </div>
   <% end %>

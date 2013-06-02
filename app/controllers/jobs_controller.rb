@@ -20,8 +20,17 @@ class JobsController < ApplicationController
   end
   
   def create
+    
+    budget = params[:job][:budget]
+    unless budget.nil?
+      budget = budget.gsub(",","").to_i
+      budget = nil if budget == 0
+    end
+    params[:job][:budget] = budget
+    
     @job = current_user.jobs.new(params[:job])
     @categories = Category.where(:ancestry => nil)
+   
     respond_to do |format|
       if @job.save
         if @job.status == POSTED
@@ -44,6 +53,14 @@ class JobsController < ApplicationController
   end
   
   def update
+    
+    budget = params[:job][:budget]
+    unless budget.nil?
+      budget = budget.gsub(",","").to_i
+      budget = nil if budget == 0
+    end
+    params[:job][:budget] = budget
+    
     @job = current_user.jobs.where(:id => params[:id]).first
     @categories = Category.where(:ancestry => nil)
     respond_to do |format|
@@ -71,7 +88,7 @@ class JobsController < ApplicationController
     when "start_date"
       return "#{order} ASC"
     when "end_date"
-      return "#{order} ASC"  
+      return "#{order} ASC" 
     else
       return "#{order} DESC"
     end

@@ -40,7 +40,7 @@ ActiveRecord::Schema.define(:version => 20130602155235) do
     t.integer  "category_id"
     t.string   "title"
     t.text     "description"
-    t.string   "budget"
+    t.integer  "budget"
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "status"
@@ -60,11 +60,13 @@ ActiveRecord::Schema.define(:version => 20130602155235) do
     t.datetime "updated_at",          :null => false
   end
 
+  add_index "photos", ["imageable_id", "imageable_type"], :name => "index_photos_on_imageable_id_and_imageable_type"
+
   create_table "service_provider_details", :force => true do |t|
     t.integer  "user_id"
     t.string   "company_name"
     t.boolean  "insurance"
-    t.string   "insurance_amount"
+    t.integer  "insurance_amount"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
     t.string   "contact_number"

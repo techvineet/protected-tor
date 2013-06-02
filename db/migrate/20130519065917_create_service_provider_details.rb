@@ -4,7 +4,7 @@ class CreateServiceProviderDetails < ActiveRecord::Migration
       t.integer :user_id
       t.string :company_name
       t.boolean :insurance
-      t.string :insurance_amount
+      t.integer :insurance_amount
 
       t.timestamps
     end

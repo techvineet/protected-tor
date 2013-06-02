@@ -21,7 +21,7 @@ class AccountController < ApplicationController
     when "start_date"
       return "#{order} ASC"
     when "end_date"
-      return "#{order} ASC"  
+      return "#{order} ASC"    
     else
       return "#{order} DESC"
     end

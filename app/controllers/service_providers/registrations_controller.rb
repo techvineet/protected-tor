@@ -20,6 +20,16 @@ class ServiceProviders::RegistrationsController < Devise::RegistrationsControlle
     resource.services.build unless resource.services.present?
     resource.certifications.build unless resource.certifications.present?
     
+    insurance_amount = params[:service_provider][:service_provider_detail_attributes][:insurance_amount]
+    original_insurance_amount = insurance_amount
+    if resource.service_provider_detail.insurance
+      unless insurance_amount.nil?
+        insurance_amount = insurance_amount.gsub(",","").to_i
+        insurance_amount = nil if insurance_amount == 0
+      end
+      resource.service_provider_detail.insurance_amount = insurance_amount
+    end
+    
     if resource.save
       if resource.active_for_authentication?
         set_flash_message :notice, :signed_up if is_navigational_format?
@@ -31,6 +41,7 @@ class ServiceProviders::RegistrationsController < Devise::RegistrationsControlle
         respond_with resource, :location => after_inactive_sign_up_path_for(resource)
       end
     else
+      resource.service_provider_detail.insurance_amount = original_insurance_amount
       clean_up_passwords resource
       respond_with resource
     end

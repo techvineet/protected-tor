@@ -34,6 +34,7 @@
       </div>
 
       <div>
+        <% builder.object.insurance_amount = number_to_currency(builder.object.insurance_amount, :precision => 0, :unit => "") %>
         <%= builder.text_field :insurance_amount, :placeholder => "Insurance Amount", :id => "insurance_amount", :style => insurance ? "" : "display: none", :class => "currency_field" %>
       </div>
 

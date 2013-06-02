@@ -21,6 +21,7 @@ end
     <%= f.text_area :description, :placeholder => "Description", :rows => 10, :maxlength => 1500 %>
   </div>
   <div>
+    <% f.object.budget = number_to_currency(f.object.budget, :precision => 0, :unit => "") %>
     <%= f.text_field :budget, :placeholder => "Budget (optional)", :class => "currency_field" %>
   </div>
   <div>

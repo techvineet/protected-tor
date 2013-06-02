@@ -12,6 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require jquery-fileupload
 //= require twitter/bootstrap
 //= require bootstrap

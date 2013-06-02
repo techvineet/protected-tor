@@ -128,3 +128,15 @@ textarea {
   }
 }
 
+form {
+  .select2-container {
+    margin-bottom: 10px;
+  }
+  input.hasDatepicker {
+    cursor: pointer;
+  }
+}
+
+input[readonly], select[readonly], textarea[readonly] {
+  background-color: white;
+}

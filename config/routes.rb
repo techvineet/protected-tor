@@ -29,9 +29,16 @@ MyApplication::Application.routes.draw do
     resources :jobs
   end
   
+  resources :jobs do
+    resources :photos
+  end
+  
   resources :photos
   
   resources :account, :only => [:index]
+  
+  match 'categories/:category/:subcategory' => 'categories#load'
+  match 'categories/:category' => 'categories#load'
   
   # The priority is based upon order of creation:
   # first created -> highest priority.

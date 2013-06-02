@@ -1,0 +1,17 @@
+<div style="overflow: auto; margin-bottom: 20px;">
+  <h2 class="pull-left">Job Postings</h2>
+  <div class="pull-right" style="margin-top: 15px;">
+    <%= form_tag(account_index_path, :remote => true, :method => :get, :id => "sort_jobs") do %>
+      <select name="order" id="sort_job_list">
+        <option></option>
+        <option value="start_date">Start Date</option>
+        <option value="end_date">Completion Date</option>
+        <option value="budget">Budget</option>
+      </select>
+    <% end %>
+  </div>
+</div>
+<div id="job_feed">
+  <%= render :partial => "jobs/job", :collection => @jobs, :locals => {:public => true} %>
+  <%= paginate @jobs, :remote => true %>
+</div>

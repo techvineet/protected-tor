@@ -10,6 +10,43 @@ function add_fields(link, association, content) {
   $(link).parent().before(content.replace(regexp, new_id));
 }
 
+function load_categories ( category, subcategory, flag ) {
+  if( flag ) {
+    $.ajax({
+      url: "/categories/"+encodeURIComponent(category.val())+"/"+encodeURIComponent(subcategory.val()),
+      success: function(data) {
+        subcategory.select2({
+          data: data.results,
+          placeholder: "Sub Category",
+          initSelection: select2InitSelection,
+          width: "220px"
+        });
+        category.select2("val",data.category)
+        subcategory.select2("val",data.subcategory);
+      }
+    });
+  } else {
+    $.ajax({
+      url: "/categories/"+encodeURIComponent(category.val()),
+      success: function(data) {
+        subcategory.select2({
+          data: data.results,
+          placeholder: "Sub Category",
+          initSelection: select2InitSelection,
+          width: "220px"
+        });
+      }
+    });
+  }
+}
+
+select2InitSelection = function (element, callback) {
+  $(element).select2("data", {
+    id: element.val(), 
+    text: element.val()
+  });
+}
+
 $(function(){
   $('div.btn-group').each(function(){
     var group   = $(this);
@@ -42,4 +79,45 @@ $(function(){
     minimumResultsForSearch: '10',
     width: "150px"
   })
+  $("#job_category_name").select2({
+    placeholder: "Category",
+    width: "220px"
+  });
+  $("#job_subcategory_name").select2({
+    placeholder: "Sub Category",
+    width: "220px",
+    data: [],
+    initSelection: select2InitSelection
+  });
+  $('.datepicker').datepicker({
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd",
+    minDate: 0
+  })
+  $( "#job_start_date" ).datepicker({
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd",
+    minDate: 0,
+    onClose: function( selectedDate ) {
+      $( "#job_end_date" ).datepicker( "option", "minDate", selectedDate );
+    }
+  });
+  $( "#job_end_date" ).datepicker({
+    showOtherMonths: true,
+    selectOtherMonths: true,
+    dateFormat: "yy-mm-dd",
+    minDate: 0,
+    onClose: function( selectedDate ) {
+      $( "#job_start_date" ).datepicker( "option", "maxDate", selectedDate );
+    }
+  });
+  $('#job_category_name').on("change", function(e) {
+    $("#job_subcategory_name").select2("val","");
+    load_categories($(this), $('#job_subcategory_name'), false);
+  });
+  $('#sort_job_list').on("change", function(e) {
+    $("#sort_jobs").submit();
+  });
 })

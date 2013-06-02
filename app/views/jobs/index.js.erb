@@ -1,0 +1,2 @@
+$("#job_feed").html("<%= escape_javascript(render :partial => "jobs/job", :collection => @jobs, :locals => {:public => false}) %>");
+$("#job_feed").append("<%= escape_javascript(paginate @jobs, :remote => true) %>");

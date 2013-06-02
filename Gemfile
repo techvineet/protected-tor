@@ -42,3 +42,9 @@ gem 'ancestry'
 
 # Dropdowns
 gem 'select2-rails'
+
+# jQuery UI
+gem 'jquery-ui-rails'
+
+# Pagination
+gem 'kaminari'

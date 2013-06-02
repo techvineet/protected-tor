@@ -1,0 +1,62 @@
+<% 
+if @job.nil? or (not @job.nil? and @job.id.nil?)
+  url = buyer_jobs_path(current_user.uuid)
+else
+  url = buyer_job_path(current_user.uuid, @job.id)
+end
+%>
+<%= form_for [current_user, @job], :url => url do |f| %>
+  <% @resource = @job %>
+  <%= form_error_messages! unless @resource.nil? %>
+  <div>
+    <%= f.select :category_name, options_from_collection_for_select(@categories, "name", "name"), :include_blank => true %>
+  </div>
+  <div>
+    <%= f.hidden_field :subcategory_name %>
+  </div>
+  <div>
+    <%= f.text_field :title, :placeholder => "Title", :maxlength => 150 %>
+  </div>
+  <div>
+    <%= f.text_area :description, :placeholder => "Description", :rows => 10, :maxlength => 1500 %>
+  </div>
+  <div>
+    <%= f.text_field :budget, :placeholder => "Budget (optional)", :class => "currency_field" %>
+  </div>
+  <div>
+    <%= f.text_field :start_date, :placeholder => "Start Date (optional)", :readonly => true %>
+  </div>
+  <div>
+    <%= f.text_field :end_date, :placeholder => "Completion Date (optional)", :readonly => true %>
+  </div>
+  <br />
+  <div>
+    <% if not @job.nil? and not @job.id.nil? %>
+      <% if @job.status == POSTED %>
+      <%#= f.button "Post", :class => "btn btn-success disabled", :value => POSTED, :disabled => true %>
+      <%#= f.button "Update", :class => "btn btn-primary disabled", :value => DRAFT, :disabled => true %>
+      <% elsif @job.status == DRAFT %>
+        <%= f.button "Post", :class => "btn btn-success", :value => POSTED %>
+        <%= f.button "Save For Later", :class => "btn btn-primary", :value => DRAFT %>
+      <% end %>
+      <a href="<%=buyer_jobs_path(current_user.uuid)%>" class="btn btn-danger">Back</a>
+      <% else %>
+        <%= f.button "Post", :class => "btn btn-success", :value => POSTED %>
+        <%= f.button "Save For Later", :class => "btn btn-primary", :value => DRAFT %>
+      <a href="<%=buyer_jobs_path(current_user.uuid)%>" class="btn btn-danger">Cancel</a>
+      <% end %>
+  </div>
+<% end %>
+
+<script>
+  $(function(){
+<% if not @job.nil? and @job.category_name.present? %>
+      $("#job_category_name").select2("val","<%= @job.category_name %>");
+  <% if @job.subcategory_name.present? %>
+        load_categories($('#job_category_name'), $('#job_subcategory_name'), true);    
+  <% else %>
+        load_categories($('#job_category_name'), $('#job_subcategory_name'), false);      
+  <% end %>
+<% end %>
+  });
+</script>  

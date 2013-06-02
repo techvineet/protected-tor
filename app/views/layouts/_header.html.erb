@@ -19,8 +19,8 @@
               <a href="/">Home</a>
             </li>
             <% if current_user.class.to_s == "Buyer" %>
-              <li class="<%= is_active? "jobs_index" %>">
-                <a href="<%= buyer_jobs_path(current_user.uuid) %>">My Jobs</a>
+              <li class="<%= is_active? "jobs_index" or is_active? "jobs_new" %>">
+                <a href="<%= buyer_jobs_path(current_user.uuid) %>">Job Postings</a>
               </li>
             <% end %>
           </ul>

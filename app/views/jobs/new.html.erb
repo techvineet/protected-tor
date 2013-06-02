@@ -1,0 +1,16 @@
+<h2>Post A Job</h2>
+
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#job_basic_info">Basic Information</a></li>
+    <li class="disabled"><a href="javascript:void(0);" data-placement="bottom" data-toggle="tooltip" title="Complete the 'Basic Information' tab to activate this tab."  rel="tooltip">Photos</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="job_basic_info" class="tab-pane active">
+      <%= render :partial => "form" %>
+    </div>
+    <div id="job_photos" class="tab-pane">
+
+    </div>
+  </div>
+</div>

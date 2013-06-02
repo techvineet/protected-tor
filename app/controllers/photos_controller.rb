@@ -86,6 +86,8 @@ class PhotosController < ApplicationController
     if params[:service_provider_id].present?
       @resource = User.find_by_uuid(params[:service_provider_id])
       @resource = User.find_by_id(params[:service_provider_id]) if @resource.nil?
+    elsif params[:job_id].present?
+      @resource = Job.find_by_id(params[:job_id])
     end
   end
   

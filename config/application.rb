@@ -63,3 +63,11 @@ module MyApplication
   
   end
 end
+
+DRAFT   = 1
+POSTED  = 2
+  
+STATUSES = {
+  DRAFT   => 'Draft',
+  POSTED  => 'Posted'
+}

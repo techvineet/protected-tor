@@ -34,8 +34,7 @@ end
   <div>
     <% if not @job.nil? and not @job.id.nil? %>
       <% if @job.status == POSTED %>
-      <%#= f.button "Post", :class => "btn btn-success disabled", :value => POSTED, :disabled => true %>
-      <%#= f.button "Update", :class => "btn btn-primary disabled", :value => DRAFT, :disabled => true %>
+      <%= f.button "Update", :class => "btn btn-primary", :value => POSTED %>
       <% elsif @job.status == DRAFT %>
         <%= f.button "Post", :class => "btn btn-success", :value => POSTED %>
         <%= f.button "Save For Later", :class => "btn btn-primary", :value => DRAFT %>

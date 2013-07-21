@@ -32,7 +32,7 @@ gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'uuidtools'
 
 # Twitter Bootstrap
-gem 'twitter-bootstrap-rails'
+gem 'twitter-bootstrap-rails', '2.2.6'
 gem 'bootstrap_helper'
 
 # File/Photo Uploading

@@ -1,0 +1,20 @@
+<h2>Update Job</h2>
+
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#job_basic_info">Basic Information</a></li>
+    <li><a href="#job_photos" data-toggle="tab">Photos</a></li>
+    <% if @job.status != DRAFT %>
+      <li><a href="<%= buyer_job_quotes_path(current_user.uuid, @job.id) %>">Quotes</a></li>
+    <% end %>
+  </ul>
+  <div class="tab-content">
+    <div id="job_basic_info" class="tab-pane active">
+      <%= render :partial => "form" %>
+    </div>
+    <div id="job_photos" class="tab-pane">
+      <%= render :partial => "photos/form" %>
+      <a href="<%=buyer_jobs_path(current_user.uuid)%>" class="btn btn-danger">Back</a>
+    </div>
+  </div>
+</div>

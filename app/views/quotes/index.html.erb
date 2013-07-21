@@ -1,0 +1,5 @@
+<% if current_user.class == Buyer %>
+  <%= render :partial => "buyer_quotes" %>
+<% elsif current_user.class == ServiceProvider %>
+  <%= render :partial => "service_provider_quotes" %>
+<% end %>

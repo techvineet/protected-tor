@@ -1,0 +1,53 @@
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#tab1">Quotes</a></li>
+    <li><a href="<%= edit_buyer_job_path(current_user.uuid, @job.id) %>">Edit Job Posting</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="tab1" class="tab-pane active">
+      <% if @job.status == CLOSED %>
+        <div class="well">
+          <%= render @job.quotes.where(:status => [ACCEPTED, JOB_ACCEPTED]) %>
+        </div>
+        <%= render @job.quotes.where("status NOT IN (#{ACCEPTED},#{JOB_ACCEPTED})") %>
+      <% else %>    
+        <%= render @job.quotes %>
+        <% unless @job.quotes.present? %>
+          <center><p class="muted"><br /><br />No Quotes</p></center>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<% if @job.status == POSTED %>
+  <div id="awardQuoteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="awardQuoteModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="awardQuoteModalLabel">Award Job</h3>
+    </div>
+    <div class="modal-body">
+      Clicking "Award Job" will close this job and notify the Service Provider. Are you sure you want to continue? 
+    </div>
+    <div class="modal-footer">
+      <%= form_tag buyer_job_quote_path(current_user.uuid, @job.id, ""), :method => :put, :id => "update_quote", :class => "form-inline", :style => "margin: 0;" do %>
+        <button class="btn btn-success">Award Job</button>
+        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      <% end %>
+    </div>
+  </div>
+  <script type="text/javascript">
+    var base_url = $("#update_quote").attr("action");
+    $(function(){
+      $("div.media").hover(function(){
+        $(this).find(".award-button").show();
+      }, function(){
+        $(this).find(".award-button").hide();
+      });
+      $(".award-button").click(function(){
+        $("#awardQuoteModal").modal("show");
+        $("#update_quote").attr("action",base_url + $(this).attr("data-id"))
+      });
+    })
+  </script>
+<% end %>

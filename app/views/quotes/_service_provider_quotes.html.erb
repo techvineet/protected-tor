@@ -1,0 +1,27 @@
+<div class="tabbable tabs-left">
+  <ul class="nav nav-tabs">
+    <li class="active"><a data-toggle="tab" href="#tab1">Active Quotes</a></li>
+    <li class=""><a data-toggle="tab" href="#tab2">Accepted Quotes</a></li>
+    <li class=""><a data-toggle="tab" href="#tab3">Archived Quotes</a></li>
+  </ul>
+  <div class="tab-content">
+    <div id="tab1" class="tab-pane active">
+      <%= render :partial => "job", :collection => @active_quotes, :locals => {:section => "active_quotes"} %>
+      <% unless @active_quotes.present? %>
+        <center><p class="muted"><br /><br /><br />No Active Quotes</p></center>
+      <% end %>
+    </div>
+    <div id="tab2" class="tab-pane">
+      <%= render :partial => "job", :collection => @accepted_quotes, :locals => {:section => "accepted_quotes"} %>
+      <% unless @accepted_quotes.present? %>
+        <center><p class="muted"><br /><br /><br />No Accepted Quotes</p></center>
+      <% end %>
+    </div>
+    <div id="tab3" class="tab-pane">
+      <%= render :partial => "job", :collection => @archived_quotes, :locals => {:section => "archived_quotes"} %>
+      <% unless @archived_quotes.present? %>
+        <center><p class="muted"><br /><br /><br />No Archived Quotes</p></center>
+      <% end %>
+    </div>
+  </div>
+</div>

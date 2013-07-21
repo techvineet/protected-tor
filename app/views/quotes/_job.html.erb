@@ -1,0 +1,40 @@
+<div class="media">
+  <a href="#" class="pull-left">
+    <% if job.photos.size > 0 %>
+      <img class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="<%= job.photos.first.upload.url(:thumb) %>">
+    <% else %>
+      <img class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="http://placehold.it/64x64&text=No+Photo">
+    <% end %>
+  </a>
+  <div class="media-body">
+    <h4 class="media-heading" style="display: inline-block;">
+      <%= link_to job.title, buyer_job_path(current_user.uuid, job.id) %>
+      <br />
+      <small><%= job.category.parent.name %> | <%= job.category.name %></small>
+    </h4>
+    <% if job.quote_status.to_i == ACCEPTED %>
+      <%= form_tag job_quote_path(job.id, job.quote_id), :method => :put, :class => "form-inline", :style => "margin: 0; display: inline;" do %> 
+        <button type="submit" class="accept-button pull-right btn btn-success btn-small" style="display: none;" name="quote[status]" value="<%= JOB_ACCEPTED %>">Accept</button>
+        <button type="submit" class="accept-button pull-right btn btn btn-danger btn-small" style="display: none; margin-right: 5px;" name="quote[status]" value="<%= JOB_REJECTED %>">Reject</button>
+      <% end %>  
+    <% end %>
+    <% if job.quote_status.to_i == JOB_ACCEPTED %>
+      <span class="badge badge-success pull-right"><i class="icon-bookmark"></i>Job Awarded</span>
+    <% end %>    
+    <% if job.request_meeting == "t" %>
+      <p class="text-success">Requested Call / Meeting</p>
+    <% else %>
+      <p class="text-success"><b>Your Quote:</b> <%= number_to_currency(job.price, :precision => 0) %></p>
+    <% end %>
+  </div>
+</div>
+
+<script type="text/javascript">
+  $(function(){
+    $("div.media").hover(function(){
+      $(this).find(".accept-button").show();
+    }, function(){
+      $(this).find(".accept-button").hide();
+    });
+  })
+</script>

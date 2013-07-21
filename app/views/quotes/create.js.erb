@@ -1,0 +1,13 @@
+<% if @quote.errors.size > 0 %>
+  <% @resource = @quote %>
+  $('.alert.alert-error').remove();
+  $('#new_quote .modal-body').prepend("<%= escape_javascript(form_error_messages!) %>");  
+<% else %>
+  $("#start-quote-button").addClass("disabled");
+  $('#quoteModal').modal('hide')  
+  $('.alert.alert-success').remove();
+  $('.alert.alert-error').remove();
+  $('#main-content').prepend("<%= escape_javascript(bootstrap_flash) %>");
+  <% flash.delete(:notice) %>
+  <% flash.delete(:alert) %>
+<% end %>

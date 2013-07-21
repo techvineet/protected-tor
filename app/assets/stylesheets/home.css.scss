@@ -140,3 +140,12 @@ form {
 input[readonly], select[readonly], textarea[readonly] {
   background-color: white;
 }
+
+.boxes {
+  margin-top: 10px;
+  background-color: #DCEAF4;
+  border-radius: 3px 3px 3px 3px;
+  .content {
+    padding: 10px;
+  }
+}

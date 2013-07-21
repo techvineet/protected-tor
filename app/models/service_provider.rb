@@ -6,8 +6,8 @@ class ServiceProvider < User
   has_many :certifications, :dependent => :destroy
   has_many :services, :dependent => :destroy
   has_many :photos, :as => :imageable, :dependent => :destroy
+  has_many :quotes
   
-  #validates_associated :service_provider_detail
   
   accepts_nested_attributes_for :service_provider_detail
   accepts_nested_attributes_for :services, :reject_if => lambda { |a| a[:name].blank? }, :allow_destroy => true

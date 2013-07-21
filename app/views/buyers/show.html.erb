@@ -2,7 +2,9 @@
   <h1><%= @user.name%></h1>
   <div>
     <p><b>Location:</b>  <%= @user.buyer_detail.location %></p>
-    <p><a href="<%= edit_buyer_path(current_user.uuid) %>" class="btn btn-primary">Edit Profile</a></p>
+    <% if current_user == @user %>
+      <p><a href="<%= edit_buyer_path(current_user.uuid) %>" class="btn btn-primary">Edit Profile</a></p>
+    <% end %>
   </div>
   <hr />
   <div class="media">

@@ -13,5 +13,8 @@
 </div>
 <div id="job_feed">
   <%= render :partial => "jobs/job", :collection => @jobs, :locals => {:public => true} %>
+  <% unless @jobs.present? %>
+  <center><p class="muted"><br />Sorry! There are no active job lisitings at this moment. Please try again later!</p></center>
+  <% end %>
   <%= paginate @jobs, :remote => true %>
 </div>

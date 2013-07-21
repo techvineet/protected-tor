@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130602155235) do
+ActiveRecord::Schema.define(:version => 20130721192911) do
 
   create_table "buyer_details", :force => true do |t|
     t.integer  "user_id"
@@ -44,9 +44,11 @@ ActiveRecord::Schema.define(:version => 20130602155235) do
     t.date     "start_date"
     t.date     "end_date"
     t.integer  "status"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
     t.integer  "buyer_id"
+    t.datetime "posted_at"
+    t.integer  "service_provider_id"
   end
 
   create_table "photos", :force => true do |t|
@@ -61,6 +63,17 @@ ActiveRecord::Schema.define(:version => 20130602155235) do
   end
 
   add_index "photos", ["imageable_id", "imageable_type"], :name => "index_photos_on_imageable_id_and_imageable_type"
+
+  create_table "quotes", :force => true do |t|
+    t.integer  "job_id"
+    t.integer  "service_provider_id"
+    t.integer  "price"
+    t.boolean  "request_meeting",     :default => false
+    t.text     "message"
+    t.integer  "status"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+  end
 
   create_table "service_provider_details", :force => true do |t|
     t.integer  "user_id"

@@ -18,9 +18,14 @@
             <li class="<%= is_active? "account_index" %>">
               <a href="/">Home</a>
             </li>
-            <% if current_user.class.to_s == "Buyer" %>
-              <li class="<%= is_active? "jobs_index" or is_active? "jobs_new" %>">
+            <% if current_user.class == Buyer %>
+              <li class="<%= is_active? "jobs_index" or is_active? "jobs_new" or is_active? "quotes_index" %>">
                 <a href="<%= buyer_jobs_path(current_user.uuid) %>">Job Postings</a>
+              </li>
+            <% end %>
+            <% if current_user.class == ServiceProvider %>
+              <li class="<%= is_active? "quotes_index" %>">
+                <a href="<%= service_provider_quotes_path(current_user.uuid) %>">Quotes</a>
               </li>
             <% end %>
           </ul>
@@ -35,20 +40,20 @@
                 <b class="caret"></b>
               </a>
               <ul class="dropdown-menu">
-                <% if current_user.class.to_s == "ServiceProvider" %>
+                <% if current_user.class == ServiceProvider %>
                   <li>
                     <%= link_to "My Profile", service_provider_path(current_user.uuid)  %>
                   </li>
-                <% elsif current_user.class.to_s == "Buyer" %>
+                <% elsif current_user.class == Buyer %>
                   <li>
                     <%= link_to "My Profile", buyer_path(current_user.uuid)  %>
                   </li>
                 <% end %>  
-                <% if current_user.class.to_s == "ServiceProvider" %>
+                <% if current_user.class == ServiceProvider %>
                   <li>
                     <%= link_to "Account Settings", edit_service_provider_registration_path %>
                   </li>
-                <% elsif current_user.class.to_s == "Buyer" %>
+                <% elsif current_user.class == Buyer %>
                   <li>
                     <%= link_to "Account Settings", edit_buyer_registration_path %>
                   </li>

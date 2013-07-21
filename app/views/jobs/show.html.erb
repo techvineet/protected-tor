@@ -1,17 +1,177 @@
-<h2>Post A Job</h2>
-
-<div class="tabbable tabs-left">
-  <ul class="nav nav-tabs">
-    <li class="active"><a data-toggle="tab" href="#job_basic_info">Basic Information</a></li>
-    <li><a href="#job_photos" data-toggle="tab">Photos</a></li>
-  </ul>
-  <div class="tab-content">
-    <div id="job_basic_info" class="tab-pane active">
-      <%= render :partial => "form" %>
+<h4>
+  <%= @job.title %>
+  <br />
+  <small><%= @job.category.parent.name %> | <%= @job.category.name %></small>
+</h4>
+<div class="row">
+  <div class="span4">
+    <div class="boxes">
+      <div class="row">
+        <div class="span2">
+          <div class="content">
+            <b>Posted:</b> 
+            <br />        
+            <%= time_ago_in_words(@job.posted_at) %> ago
+          </div>
+        </div>
+        <div class="span2">
+          <div class="content">
+            <b>Budget:</b> 
+            <br />
+            <% if @job.budget.present? %>
+              <%= number_to_currency(@job.budget) %>
+            <% else %>
+              Not Disclosed
+            <% end %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span2">
+          <div class="content">
+            <b>Start Date:</b>
+            <br />
+            <%= @job.start_date.nil? ? "Undecided" : @job.start_date.readable_inspect %>
+          </div>
+        </div>
+        <div class="span2">
+          <div class="content">
+            <b>Location:</b>
+            <br />
+            <%= @job.buyer.buyer_detail.location.present? ? @job.buyer.buyer_detail.location : "Not Disclosed" %>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="span2">
+          <div class="content">
+            <b>End Date:</b>
+            <br />
+            <%= @job.end_date.nil? ? "Undecided" : @job.end_date.readable_inspect %>
+          </div>
+        </div>
+        <div class="span2">
+          <div class="content">
+            <b># of bids:</b> <%= @job.quotes.count %>
+          </div>
+        </div>
+      </div>
     </div>
-    <div id="job_photos" class="tab-pane">
-      <%= render :partial => "photos/form" %>
-      <a href="<%=buyer_jobs_path(current_user.uuid)%>" class="btn btn-danger">Back</a>
+    <div class="boxes">
+      <div class="row">
+        <div class="span4">
+          <div class="content">
+            <center>
+              <button id="start-quote-button" class="btn btn-success <% unless @quote.nil? %>disabled<% end %>">Start Quote</button>
+              <button class="btn btn-primary"><i class="icon-star"></i> Add To Watchlist</button>
+              <% unless @quote.nil? %>
+                <p class="text-success clearfix"><br />
+                  <% if @quote.request_meeting %>
+                    You have requested a call / meeting for this job. 
+                  <% else %>
+                    You have submitted your quote of <%= number_to_currency(@quote.price, :precision => 0) %> for this job.
+                  <% end %>
+                </p>
+              <% end %>
+            </center>
+          </div>
+        </div>
+      </div>
     </div>
+    <% if @job.photos.count > 0 %>
+      <div class="boxes">
+        <div class="row">
+          <div class="span4">
+            <div class="content">
+              <div class="row-fluid">
+                <% @job.photos.in_groups_of(4, false).each do |photo_arr| %>
+                  <ul class="thumbnails">
+                    <% photo_arr.each do |photo| %>
+                      <li class="span3">
+                        <a class="thumbnail" href="#">
+                          <img src="<%=photo.upload.url(:small)%>">
+                        </a>
+                      </li>
+                    <% end %>
+                  </ul>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
+  <div class="span5 boxes">
+    <div class="content">
+      <div class="media">
+        <a href="#" class="pull-left">
+          <img class="media-object" alt="64x64" style="width: 64px; height: 64px;" src="http://placehold.it/64x64&text=No+Photo">
+        </a>
+        <div class="media-body">
+          <h4 class="media-heading">
+            <%= @job.buyer.name %>
+            <br />
+            <small><%= link_to "See Profile", buyer_path(@job.buyer.uuid)%></small>
+          </h4>
+          <p>
+            <b>Job Description:</b>
+            <%= @job.description %>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>  
 </div>
+<br />
+<div> 
+  <%= link_to :back, :class => "btn btn-primary"  do %>
+    <i class="icon-arrow-left"></i>
+    Go Back
+  <% end %>
+</div>
+
+<% if @quote.nil? %>
+  <div id="quoteModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="quoteModalLabel" aria-hidden="true">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+      <h3 id="quoteModalLabel">Quote</h3>
+    </div>
+    <%= form_for [@job, Quote.new], :remote => true, :html => {:class => "form-inline", :style => "margin: 0;"} do |f| %>
+      <div class="modal-body">
+        <div class="row-fluid">
+          <div class="span4" style="text-align: center;">
+            <div class="input-prepend">
+              <span class="add-on">$</span>
+              <%= f.text_field :price, :placeholder => "Quote Price", :class => "input currency_field", :style => "width: 75%;" %>
+            </div>
+          </div>
+          <div class="span4" style="text-align: center;">
+            <p class="lead" style="margin: 0px 30px;">OR</p>
+          </div>
+          <div class="span4" style="text-align: center;">
+            <label class="checkbox" style="margin-top: 5px;">
+              <%= f.check_box :request_meeting, :value => "1" %> Request Call / Meeting
+            </label>
+          </div>
+        </div>
+        <br />
+        <%= f.text_area :message, :rows => "4", :style => "width: 97%; resize: vertical;", :placeholder => "Add a personal message (optional) (50-300 Characters)", :maxlength => "300" %>
+      </div>
+      <div class="modal-footer">
+        <%= f.button "Quote", :class => "btn btn-primary" %>
+        <button class="btn btn-danger" data-dismiss="modal" aria-hidden="true">Cancel</button>
+      </div>
+    <% end %>
+  </div>
+<% end %>
+
+<script type="text/javascript">
+  $(function(){
+    $("#start-quote-button").click(function(){
+      if(!$(this).hasClass("disabled")) {
+        $('#quoteModal').modal('show');
+      }
+    })
+  })
+</script>

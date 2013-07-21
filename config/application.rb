@@ -64,10 +64,29 @@ module MyApplication
   end
 end
 
-DRAFT   = 1
-POSTED  = 2
-  
-STATUSES = {
-  DRAFT   => 'Draft',
-  POSTED  => 'Posted'
+# STATUS FLAGS FOR WORKFLOW
+# DO NOT CHANGE ANY EXISTING VALUES WITHOUT MIGRATING DATA
+
+DRAFT     = 1
+POSTED    = 2
+CLOSED    = 3
+
+JOB_STATUSES = {
+  DRAFT     => 'Draft',
+  POSTED    => 'Posted',
+  CLOSED    => 'Closed'
+}
+
+ACCEPTED      = 1
+REJECTED      = 2
+PENDING       = 3
+JOB_ACCEPTED  = 4
+JOB_REJECTED  = 5
+
+QUOTE_STATUSES = {
+  ACCEPTED      => 'Accepted',
+  REJECTED      => 'Rejected',
+  PENDING       => 'Pending',
+  JOB_ACCEPTED  => 'Job Accepted',
+  JOB_REJECTED  => 'Job Rejected'
 }

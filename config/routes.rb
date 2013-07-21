@@ -23,14 +23,18 @@ MyApplication::Application.routes.draw do
   
   resources :service_providers do
     resources :photos
+    resources :quotes, :only => [:index, :show]
   end
   
   resources :buyers do
-    resources :jobs
+    resources :jobs do 
+      resources :quotes
+    end
   end
   
   resources :jobs do
     resources :photos
+    resources :quotes
   end
   
   resources :photos

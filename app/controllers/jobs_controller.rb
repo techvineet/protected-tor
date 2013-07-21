@@ -30,13 +30,15 @@ class JobsController < ApplicationController
     
     @job = current_user.jobs.new(params[:job])
     @categories = Category.where(:ancestry => nil)
-   
+    if @job.status == POSTED and @job.posted_at.nil?
+      @job.posted_at = Time.now.to_formatted_s(:db)
+    end
     respond_to do |format|
       if @job.save
         if @job.status == POSTED
           format.html  { redirect_to(buyer_jobs_path(current_user.uuid), :notice => 'Job posted successfully.') }
         else  
-          format.html  { redirect_to(buyer_job_path(current_user.uuid, @job.id), :notice => 'Job saved successfully. ') }
+          format.html  { redirect_to(edit_buyer_job_path(current_user.uuid, @job.id), :notice => 'Job saved successfully. ') }
         end
       else
         format.html { render :action => "new" }
@@ -45,6 +47,13 @@ class JobsController < ApplicationController
   end
   
   def show
+    @job = Job.find_by_id(params[:id])
+    raise ActiveRecord::RecordNotFound if @job.nil? or (@job.present? and not (@job.status == POSTED or @job.status == CLOSED))
+    @quote = current_user.quotes.find_by_job_id(params[:id])
+    flash.now[:alert] = "This Job Posting is closed." if @job.status == CLOSED
+  end
+  
+  def edit
     @job = current_user.jobs.where(:id => params[:id]).first
     @job.subcategory_name = Category.find_by_id(@job.category_id).name
     @job.category_name = Category.find_by_id(@job.category_id).parent.name
@@ -66,6 +75,10 @@ class JobsController < ApplicationController
     respond_to do |format|
       if @job.update_attributes(params[:job])
         if @job.status == POSTED
+          if @job.posted_at.nil?
+            @job.posted_at = Time.now.to_formatted_s(:db)
+            @job.save
+          end        
           format.html  { redirect_to(buyer_jobs_path(current_user.uuid), :notice => 'Job posted successfully.') }
         else  
           format.html  { redirect_to(buyer_job_path(current_user.uuid, @job.id), :notice => 'Job saved successfully. ') }

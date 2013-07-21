@@ -9,30 +9,35 @@
   <div class="media-body">
     <h4 class="media-heading">
       <% if public %>
-        <%= job.title %>
+        <%= link_to job.title, buyer_job_path(current_user.uuid, job.id) %>
       <% else %>
-        <%= link_to job.title, buyer_job_path(current_user.uuid, job.id) %> 
+        <% if job.status == POSTED or job.status == CLOSED %>
+          <%= link_to job.title, buyer_job_quotes_path(current_user.uuid, job.id) %> 
+        <% else %>
+          <%= link_to job.title, edit_buyer_job_path(current_user.uuid, job.id) %>  
+        <% end %>
       <% end %>
-      <small><%= job.category.parent.name %> | <%= job.category.name %></small>
       <% unless public %>      
         <% if job.status == POSTED %>
           <span class="label label-success pull-right"><%= job.status_name %></span>
         <% elsif job.status == DRAFT %>
           <span class="label label-warning pull-right"><%= job.status_name %></span>
+        <% elsif job.status == CLOSED %>
+          <span class="label label-important pull-right"><%= job.status_name %></span>  
         <% end %> 
       <% end %>
+      <br />
+      <small><%= job.category.parent.name %> | <%= job.category.name %></small>
     </h4>
     <% if job.budget.present? %>
       <%= number_to_currency(job.budget, :precision => 0) %>
     <% else %>
-      Not Disclosed
+      Budget Not Disclosed
     <% end %> | 
     <% if job.start_date.present? or job.end_date.present? %>
       <%= job.start_date.nil? ? "Undecided" : job.start_date.readable_inspect %> to <%= job.end_date.nil? ? "Undecided" : job.end_date.readable_inspect %>
     <% else %>
       No Timelines
     <% end %>
-    <br />
-    <%= job.description %>
   </div>
 </div>
